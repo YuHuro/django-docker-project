@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Вход</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <style>
+    @keyframes gradientBackground {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    body {
+      background: linear-gradient(135deg, #667eea, #764ba2, #ff758c, #ff7eb3);
+      background-size: 300% 300%;
+      animation: gradientBackground 8s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+    }
+    .login-container {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      width: 350px;
+      text-align: center;
+    }
+    .login__title {
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+    .login__form {
+      display: flex;
+      flex-direction: column;
+    }
+    .login__form-group {
+      display: flex;
+      flex-direction: column;
+    }
+    .login__field-group {
+      margin-bottom: 1rem;
+      text-align: left;
+    }
+    .login__field-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.3rem;
+    }
+    .login__field-group input,
+    .login__field-group textarea,
+    .login__field-group select {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    .login__error {
+      color: red;
+      font-size: 0.9rem;
+      margin-top: 0.2rem;
+    }
+    .login__submit {
+      background: #4c51bf;
+      color: white;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .login__submit:hover {
+      background: #3c40c6;
+    }
+    .login__register-link {
+      margin-top: 1rem;
+    }
+    .login__register-link a {
+      color: #4c51bf;
+      text-decoration: none;
+    }
+    .login__register-link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h2 class="login__title">Вход</h2>
+    <form method="post" class="login__form">
+      {% csrf_token %}
+      <div class="login__form-group">
+        {% for field in form %}
+          <div class="login__field-group">
+            {{ field.label_tag }}
+            {{ field }}
+            {% if field.errors %}
+              <div class="login__error">
+                {{ field.errors|join:" " }}
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+      <button type="submit" class="login__submit">Войти</button>
+    </form>
+    <p class="login__register-link">
+      Нет аккаунта? <a href="{% url 'register' %}">Зарегистрироваться</a>
+    </p>
+  </div>
+</body>
+</html>

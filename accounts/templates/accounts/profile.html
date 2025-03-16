@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Профиль - Central Park</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f5f5f5;
+      font-family: 'Arial', sans-serif;
+      padding-top: 80px;
+    }
+    .navbar {
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+    }
+    .profile-container {
+      background: white;
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 3rem;
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+    .gold-text {
+      color: #d4af37;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <div class="text-white font-semibold text-2xl">
+          <a href="{% url 'menu' %}"><span class="gold-text">CENTRAL</span> PARK</a>
+        </div>
+        <div class="flex space-x-6">
+          <a href="{% url 'cart_detail' %}" class="text-gray-300 hover:text-white flex items-center transition-colors">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
+            Корзина
+          </a>
+          <a href="{% url 'profile' %}" class="text-gray-300 hover:text-white flex items-center transition-colors">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+            </svg>
+            Профиль
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="profile-container">
+    <h1 class="text-3xl font-light text-gray-800 mb-8 text-center">Профиль</h1>
+
+    <div class="space-y-4 mb-8">
+      <div class="flex justify-between items-center border-b border-gray-100 pb-2">
+        <span class="text-gray-600">Никнейм:</span>
+        <span class="text-gray-800 font-medium">{{ user.username }}</span>
+      </div>
+      <div class="flex justify-between items-center border-b border-gray-100 pb-2">
+        <span class="text-gray-600">Имя:</span>
+        <span class="text-gray-800 font-medium">{{ user.first_name }}</span>
+      </div>
+    </div>
+
+    <div class="flex flex-col sm:flex-row justify-center gap-4 mt-8">
+      <form action="{% url 'logout' %}" method="post" class="w-full sm:w-auto">
+        {% csrf_token %}
+        <button type="submit" class="w-full px-6 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors">
+          Выйти
+        </button>
+      </form>
+      <a href="{% url 'menu' %}" class="px-6 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+        Перейти в меню
+      </a>
+    </div>
+  </div>
+</body>
+</html>

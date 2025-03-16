@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Оформление заказа - Central Park</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: 'Arial', sans-serif;
+            padding-top: 80px;
+        }
+        .navbar {
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        .container-box {
+            background: white;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        .gold-text { color: #d4af37; }
+        .bg-gold { background-color: #d4af37; }
+        .hover\:bg-gold-dark:hover { background-color: #b8992e; }
+
+        /* Явные стили для полей ввода */
+        input, textarea {
+            width: 100%;
+            padding: 0.5rem 1rem;
+            border: 2px solid #cbd5e0; /* Серые границы */
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+        input:hover, textarea:hover {
+            border-color: #a0aec0; /* Темнее при наведении */
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #d4af37; /* Золотая граница при фокусе */
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="text-white font-semibold text-2xl">
+                    <a href="{% url 'menu' %}"><span class="gold-text">CENTRAL</span> PARK</a>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="{% url 'cart_detail' %}" class="text-gray-300 hover:text-white flex items-center transition-colors">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                        Корзина
+                    </a>
+                    <a href="{% url 'profile' %}" class="text-gray-300 hover:text-white flex items-center transition-colors">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                        </svg>
+                        Профиль
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-box">
+        <h1 class="text-3xl font-light text-gray-800 mb-8">Оформление заказа</h1>
+
+        <form method="post" class="max-w-2xl mx-auto">
+            {% csrf_token %}
+
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Адрес доставки
+                    </label>
+                    {{ form.address }}
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Номер телефона
+                    </label>
+                    {{ form.phone_number }}
+                </div>
+            </div>
+
+            <div class="mt-8 pt-6 border-t border-gray-100">
+                <button type="submit"
+                    class="w-full px-6 py-3 bg-gold text-white rounded-lg hover:bg-gold-dark transition-colors shadow-md font-medium text-lg">
+                    Подтвердить заказ
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

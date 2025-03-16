@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Регистрация</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <style>
+    @keyframes gradientBackground {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+    body {
+      background: linear-gradient(135deg, #667eea, #764ba2, #ff758c, #ff7eb3);
+      background-size: 300% 300%;
+      animation: gradientBackground 8s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+    }
+    .register-container {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      width: 350px;
+      text-align: center;
+    }
+    .register__title {
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+    .register__form {
+      display: flex;
+      flex-direction: column;
+    }
+    /* Контейнер для группы полей */
+    .register__form-group {
+      display: flex;
+      flex-direction: column;
+    }
+    /* Группа для отдельного поля */
+    .register__field-group {
+      margin-bottom: 1rem;
+      text-align: left;
+    }
+    /* Стили для меток полей */
+    .register__field-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.3rem;
+    }
+    /* Стили для полей ввода */
+    .register__field-group input,
+    .register__field-group textarea,
+    .register__field-group select {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    /* Стили для сообщений об ошибках */
+    .register__error {
+      color: red;
+      font-size: 0.9rem;
+      margin-top: 0.2rem;
+    }
+    /* Стили для кнопки отправки */
+    .register__submit {
+      background: #4c51bf;
+      color: white;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .register__submit:hover {
+      background: #3c40c6;
+    }
+    /* Стили для ссылки на вход */
+    .register__login-prompt {
+      margin-top: 1rem;
+    }
+    .register__login-link {
+      color: #4c51bf;
+      text-decoration: none;
+    }
+    .register__login-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <main class="register-container">
+    <h1 class="register__title">Создать аккаунт</h1>
+    <form method="post" class="register__form">
+      {% csrf_token %}
+      <div class="register__form-group">
+        {% for field in form %}
+          <div class="register__field-group">
+            {{ field.label_tag }}
+            {{ field }}
+            {% if field.errors %}
+              <div class="register__error">
+                {{ field.errors|join:" " }}
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+      <button type="submit" class="register__submit">Зарегистрироваться</button>
+    </form>
+    <p class="register__login-prompt">
+      Есть аккаунт? <a href="{% url 'login' %}" class="register__login-link">Войти</a>
+    </p>
+  </main>
+</body>
+</html>
+
+
