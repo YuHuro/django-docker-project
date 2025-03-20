@@ -15,6 +15,3 @@ def add_to_cart(request, dish_id):
         cart_item.quantity += 1
         cart_item.save()
     return redirect('menu')
-
-def redirect_to_menu():
-    return redirect('/menu/menu/')
