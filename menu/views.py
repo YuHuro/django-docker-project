@@ -17,4 +17,4 @@ def add_to_cart(request, dish_id):
     return redirect('menu')
 
 def redirect_to_menu():
-    return redirect('/menu/menu/')
+    return redirect('menu:menu')
