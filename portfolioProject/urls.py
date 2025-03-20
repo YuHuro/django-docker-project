@@ -20,8 +20,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path, include
 
+
+
 urlpatterns = [
-    path('', lambda request: redirect('menu/', permanent=True)),
+    path('', lambda request: redirect('menu:menu', permanent=True)),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('menu/', include('menu.urls')),
