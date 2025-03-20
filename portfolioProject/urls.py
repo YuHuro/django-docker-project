@@ -17,15 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path, include, reverse_lazy
-from django.views.generic import RedirectView
+from django.urls import path, include
+from menu.views import redirect_to_menu
 
 
 
 urlpatterns = [
-    path('', RedirectView.as_view(url=reverse_lazy('menu:menu'), permanent=True)),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
+    path('', redirect_to_menu, name='redirect_to_menu'),
     path('menu/', include('menu.urls')),
     path('orders/', include('orders.urls')),
 ]
